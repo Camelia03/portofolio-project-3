@@ -8,14 +8,7 @@
 
 class GameBoard:
     def __init__(self) -> None:
-        self.board_state = []
-
-
-        for i in range(4):
-            cells = []
-            for j in range(4):
-                cells.append(" ")
-            self.board_state.append(cells) 
+        self.board_state = [[" " for i in range(4)] for i in range(4)]
 
     def pretty_print(self):
        for row in self.board_state:
