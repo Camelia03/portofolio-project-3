@@ -18,7 +18,9 @@ class GameBoard:
         for i in range(self.nr_boats):
             pos = self.gen_unique_position()
             self.boat_positions.append(pos)
-            self.board_state[pos[0]][pos[1]] = "O"
+            self.add_to_state(pos, "O")
+        self.correct_guesses = []
+        self.wrong_guesses = []
 
     def pretty_print(self):
         for i, row in enumerate(self.board_state):
@@ -36,12 +38,27 @@ class GameBoard:
     def gen_unique_position(self):
         while True:
             pos = self.gen_random_position()
-            print(pos)
             if pos not in self.boat_positions:
                 return pos
 
             pos = self.gen_random_position()
 
+    def add_guess(self, pos):
+        if pos in self.boat_positions:
+            self.correct_guesses.append(pos)
+            self.add_to_state(pos, "*")
+        else:
+            self.wrong_guesses.append(pos)
+            self.add_to_state(pos, "X")
+
+    def add_to_state(self, pos, character):
+        self.board_state[pos[0]][pos[1]] = character
+
 
 board = GameBoard()
+board.pretty_print()
+user_guess = input("Please enter a guess:")
+parsed_used_guess = tuple(map(int, user_guess.split(",")))
+print(parsed_used_guess)
+board.add_guess(parsed_used_guess)
 board.pretty_print()
