@@ -54,11 +54,28 @@ class GameBoard:
     def add_to_state(self, pos, character):
         self.board_state[pos[0]][pos[1]] = character
 
+    def gen_random_guess(self):
+        while True:
+            pos = self.gen_random_position()
+            if pos not in self.wrong_guesses and pos not in self.correct_guesses:
+                return pos
 
-board = GameBoard()
-board.pretty_print()
-user_guess = input("Please enter a guess:")
-parsed_used_guess = tuple(map(int, user_guess.split(",")))
-print(parsed_used_guess)
-board.add_guess(parsed_used_guess)
-board.pretty_print()
+
+computer_board = GameBoard()
+user_board = GameBoard()
+
+while True:
+    print("Computer's board: ")
+    computer_board.pretty_print()
+    print("User's board: ")
+    user_board.pretty_print()
+
+    user_guess = input("Please enter a guess:")
+    parsed_used_guess = tuple(map(int, user_guess.split(",")))
+    print(parsed_used_guess)
+    computer_board.add_guess(parsed_used_guess)
+    computer_board.pretty_print()
+
+    computer_guess = user_board.gen_random_guess()
+    user_board.add_guess(computer_guess)
+    user_board.pretty_print()
