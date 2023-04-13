@@ -60,22 +60,48 @@ class GameBoard:
             if pos not in self.wrong_guesses and pos not in self.correct_guesses:
                 return pos
 
+    def game_finished(self):
+        """ The game is finished if the number of correct guesses
+            is the same as the number of boats
+        """
+        return len(self.correct_guesses) == len(self.boat_positions)
+
 
 computer_board = GameBoard()
 user_board = GameBoard()
 
 while True:
+    # Display the game boards
     print("Computer's board: ")
     computer_board.pretty_print()
     print("User's board: ")
     user_board.pretty_print()
 
+    # Ask the user for a guess
     user_guess = input("Please enter a guess:")
+
+    # Parse the user input to a tuple
     parsed_used_guess = tuple(map(int, user_guess.split(",")))
-    print(parsed_used_guess)
+
+    # Add the user's guess to the computer board and print the result
     computer_board.add_guess(parsed_used_guess)
     computer_board.pretty_print()
 
+    # Check if the user has won
+    if computer_board.game_finished():
+        print("Congrats! You have won!")
+        break
+
+    # Generate randome guess for the computer
     computer_guess = user_board.gen_random_guess()
+
+    # Add the computer's guess to the user's board and print the result
     user_board.add_guess(computer_guess)
     user_board.pretty_print()
+
+    # Check if the computer has won
+    if user_board.game_finished():
+        print("Oh no! You have lost!")
+        break
+
+print("Game finished")
