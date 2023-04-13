@@ -106,6 +106,7 @@ while True:
             break
 
     print("Game finished")
-    play_again = input("Would you like to play again? Y/N:")
-    if play_again == "N":
+    play_again = input(
+        "Would you like to play again? Press \"N\" to end or any key to play again\n")
+    if play_again.lower() == "n":
         break
