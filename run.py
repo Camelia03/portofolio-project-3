@@ -66,6 +66,39 @@ class GameBoard:
         """
         return len(self.correct_guesses) == len(self.boat_positions)
 
+    def validate_position(self, pos):
+        """
+        Check if the position is valid on the board
+        """
+        if len(pos) != 2:
+            return False
+        if pos[0] < 0 or pos[0] > 3:
+            return False
+        if pos[1] < 0 or pos[1] > 3:
+            return False
+        return True
+
+
+def parse_user_guess(user_guess):
+    """
+    Function to parse user guess to tuple of int
+    """
+    return tuple(map(int, user_guess.split(",")))
+
+
+def get_user_guess(board):
+    while True:
+        try:
+            # Parse the user input to a tuple
+            parsed_user_guess = parse_user_guess(
+                input("Please enter a guess:"))
+            if board.validate_position(parsed_user_guess) is True:
+                return parsed_user_guess
+        except ValueError:
+            pass
+
+        print("Please enter two numbers separated by a comma")
+
 
 while True:
     computer_board = GameBoard()
@@ -78,14 +111,11 @@ while True:
         print("User's board: ")
         user_board.pretty_print()
 
-        # Ask the user for a guess
-        user_guess = input("Please enter a guess:")
-
-        # Parse the user input to a tuple
-        parsed_used_guess = tuple(map(int, user_guess.split(",")))
+        # Ask the user for correct guess
+        user_guess = get_user_guess(computer_board)
 
         # Add the user's guess to the computer board and print the result
-        computer_board.add_guess(parsed_used_guess)
+        computer_board.add_guess(user_guess)
         computer_board.pretty_print()
 
         # Check if the user has won
