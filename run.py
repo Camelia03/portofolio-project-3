@@ -100,9 +100,7 @@ def get_user_guess(board):
         print("Please enter two numbers separated by a comma")
 
 
-while True:
-    computer_board = GameBoard()
-    user_board = GameBoard()
+def play(user_board, computer_board):
 
     while True:
         # Display the game boards
@@ -135,8 +133,20 @@ while True:
             print("Oh no! You have lost!")
             break
 
-    print("Game finished")
-    play_again = input(
-        "Would you like to play again? Press \"N\" to end or any key to play again\n")
-    if play_again.lower() == "n":
-        break
+
+def run():
+    while True:
+        computer_board = GameBoard()
+        user_board = GameBoard()
+
+        play(user_board, computer_board)
+
+        print("Game finished")
+
+        play_again = input(
+            "Would you like to play again? Press \"N\" to end or any key to play again\n")
+        if play_again.lower() == "n":
+            break
+
+
+run()
