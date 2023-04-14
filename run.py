@@ -1,7 +1,3 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
-
 from random import randrange
 
 # name_str = input("Enter your name:\n")
@@ -9,6 +5,10 @@ from random import randrange
 
 
 class GameBoard:
+    """
+    Class representing the game board
+    """
+
     def __init__(self) -> None:
         self.size = 4
         self.board_state = [
@@ -23,6 +23,9 @@ class GameBoard:
         self.wrong_guesses = []
 
     def pretty_print(self):
+        """
+        Print the board
+        """
         for i, row in enumerate(self.board_state):
             print(i, end=": ")
             for cell in row:
@@ -31,11 +34,17 @@ class GameBoard:
             print("|")
 
     def gen_random_position(self):
+        """
+        Generate a random position
+        """
         x = randrange(self.size)
         y = randrange(self.size)
         return (x, y)
 
     def gen_unique_position(self):
+        """
+        Generate a random unique position
+        """
         while True:
             pos = self.gen_random_position()
             if pos not in self.boat_positions:
@@ -44,6 +53,9 @@ class GameBoard:
             pos = self.gen_random_position()
 
     def add_guess(self, pos):
+        """
+        Check if the guess is a hit and add to board state
+        """
         if pos in self.boat_positions:
             self.correct_guesses.append(pos)
             self.add_to_state(pos, "*")
@@ -52,9 +64,15 @@ class GameBoard:
             self.add_to_state(pos, "X")
 
     def add_to_state(self, pos, character):
+        """
+        Set a character in the board state at a position
+        """
         self.board_state[pos[0]][pos[1]] = character
 
     def gen_random_guess(self):
+        """
+        Generate a random unique position
+        """
         while True:
             pos = self.gen_random_position()
             if pos not in self.wrong_guesses and pos not in self.correct_guesses:
@@ -87,6 +105,10 @@ def parse_user_guess(user_guess):
 
 
 def get_user_guess(board):
+    """
+    Ask the user for a guess
+    Parse and validate the guess
+    """
     while True:
         try:
             # Parse the user input to a tuple
@@ -100,8 +122,10 @@ def get_user_guess(board):
         print("Please enter two numbers separated by a comma")
 
 
-def play(user_board, computer_board):
-
+def play_round(user_board, computer_board):
+    """
+    Play a round of the game
+    """
     while True:
         # Display the game boards
         print("Computer's board: ")
@@ -135,14 +159,20 @@ def play(user_board, computer_board):
 
 
 def run():
+    """
+    Main game loop
+    """
     while True:
+        # Generate game boards
         computer_board = GameBoard()
         user_board = GameBoard()
 
-        play(user_board, computer_board)
+        # Run game round
+        play_round(user_board, computer_board)
 
         print("Game finished")
 
+        # Ask the user to play again
         play_again = input(
             "Would you like to play again? Press \"N\" to end or any key to play again\n")
         if play_again.lower() == "n":
