@@ -90,9 +90,9 @@ class GameBoard:
         """
         if len(pos) != 2:
             return False
-        if pos[0] < 0 or pos[0] > 3:
+        if pos[0] < 0 or pos[0] > self.size - 1:
             return False
-        if pos[1] < 0 or pos[1] > 3:
+        if pos[1] < 0 or pos[1] > self.size - 1:
             return False
         return True
 
