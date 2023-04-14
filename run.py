@@ -97,86 +97,89 @@ class GameBoard:
         return True
 
 
-def parse_user_guess(user_guess):
+class BattleshipsGame:
     """
-    Function to parse user guess to tuple of int
+    Class representing the game
     """
-    return tuple(map(int, user_guess.split(",")))
+
+    def parse_user_guess(self, user_guess):
+        """
+        Function to parse user guess to tuple of int
+        """
+        return tuple(map(int, user_guess.split(",")))
+
+    def get_user_guess(self, board):
+        """
+        Ask the user for a guess
+        Parse and validate the guess
+        """
+        while True:
+            try:
+                # Parse the user input to a tuple
+                parsed_user_guess = self.parse_user_guess(
+                    input("Please enter a guess:"))
+                if board.validate_position(parsed_user_guess) is True:
+                    return parsed_user_guess
+            except ValueError:
+                pass
+
+            print("Please enter two numbers separated by a comma")
+
+    def play_round(self, user_board, computer_board):
+        """
+        Play a round of the game
+        """
+        while True:
+            # Display the game boards
+            print("Computer's board: ")
+            computer_board.pretty_print()
+            print("User's board: ")
+            user_board.pretty_print()
+
+            # Ask the user for correct guess
+            user_guess = self.get_user_guess(computer_board)
+
+            # Add the user's guess to the computer board and print the result
+            computer_board.add_guess(user_guess)
+            computer_board.pretty_print()
+
+            # Check if the user has won
+            if computer_board.game_finished():
+                print("Congrats! You have won!")
+                break
+
+            # Generate randome guess for the computer
+            computer_guess = user_board.gen_random_guess()
+
+            # Add the computer's guess to the user's board and print the result
+            user_board.add_guess(computer_guess)
+            user_board.pretty_print()
+
+            # Check if the computer has won
+            if user_board.game_finished():
+                print("Oh no! You have lost!")
+                break
+
+    def run(self):
+        """
+        Main game loop
+        """
+        while True:
+            # Generate game boards
+            computer_board = GameBoard()
+            user_board = GameBoard()
+
+            # Run game round
+            self.play_round(user_board, computer_board)
+
+            print("Game finished")
+
+            # Ask the user to play again
+            play_again = input(
+                "Would you like to play again? Press \"N\" to end or any key to play again\n")
+            if play_again.lower() == "n":
+                break
 
 
-def get_user_guess(board):
-    """
-    Ask the user for a guess
-    Parse and validate the guess
-    """
-    while True:
-        try:
-            # Parse the user input to a tuple
-            parsed_user_guess = parse_user_guess(
-                input("Please enter a guess:"))
-            if board.validate_position(parsed_user_guess) is True:
-                return parsed_user_guess
-        except ValueError:
-            pass
-
-        print("Please enter two numbers separated by a comma")
-
-
-def play_round(user_board, computer_board):
-    """
-    Play a round of the game
-    """
-    while True:
-        # Display the game boards
-        print("Computer's board: ")
-        computer_board.pretty_print()
-        print("User's board: ")
-        user_board.pretty_print()
-
-        # Ask the user for correct guess
-        user_guess = get_user_guess(computer_board)
-
-        # Add the user's guess to the computer board and print the result
-        computer_board.add_guess(user_guess)
-        computer_board.pretty_print()
-
-        # Check if the user has won
-        if computer_board.game_finished():
-            print("Congrats! You have won!")
-            break
-
-        # Generate randome guess for the computer
-        computer_guess = user_board.gen_random_guess()
-
-        # Add the computer's guess to the user's board and print the result
-        user_board.add_guess(computer_guess)
-        user_board.pretty_print()
-
-        # Check if the computer has won
-        if user_board.game_finished():
-            print("Oh no! You have lost!")
-            break
-
-
-def run():
-    """
-    Main game loop
-    """
-    while True:
-        # Generate game boards
-        computer_board = GameBoard()
-        user_board = GameBoard()
-
-        # Run game round
-        play_round(user_board, computer_board)
-
-        print("Game finished")
-
-        # Ask the user to play again
-        play_again = input(
-            "Would you like to play again? Press \"N\" to end or any key to play again\n")
-        if play_again.lower() == "n":
-            break
-
-
-run()
+game = BattleshipsGame()
+game.run()
