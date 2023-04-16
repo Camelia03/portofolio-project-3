@@ -242,8 +242,8 @@ class BattleshipsGame:
 
             # Ask the user to play again
             play_again = input(
-                "Would you like to play again? Press \"N\"\
-                     to end or any key to play again\n")
+                ("Would you like to play again? Press \"N\""
+                 "to end or any key to play again\n"))
             if play_again.lower() == "n":
                 break
 
