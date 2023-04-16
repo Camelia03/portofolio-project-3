@@ -26,9 +26,20 @@ class GameBoard:
         """
         Print the board
         """
-        for i, row in enumerate(self.board_state):
+        table = "┏━━━" + "┳━━━" * (self.size - 1) + "┓" + "\n"
+        table += ("┃" + "   ") * (self.size) + "┃" + "\n"
+        table += "┣━━━" + "╋━━━" * (self.size - 1) + "┫" + "\n"
+        table += ("┃" + "   ") * (self.size) + "┃" + "\n"
+        table += "┣━━━" + "╋━━━" * (self.size - 1) + "┫" + "\n"
+        table += ("┃" + "   ") * (self.size) + "┃" + "\n"
+        table += "┗━━━" + "┻━━━" * (self.size - 1) + "┛" + "\n"
+
+        print(table)
+        return
+
+        for i, table in enumerate(self.board_state):
             print(i, end=": ")
-            for cell in row:
+            for cell in table:
                 print("|", end="")
                 if hide_boats is True and cell == "O":
                     print(" ", end="")
