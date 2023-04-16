@@ -38,7 +38,10 @@ class GameBoard:
                 table += "┏━━━" + "┳━━━" * (self.size - 1) + "┓" + "\n"
 
             # Print cells
-            table += "".join(f"┃ {hide_boat(cell)} " for cell in row) + "┃" + "\n"
+
+            table += (
+                "".join(f"┃ {hide_boat(cell)} " for cell in row) + "┃" + "\n"
+            )
 
             # Print end or middle of table
             if i == len(self.board_state) - 1:
@@ -52,9 +55,9 @@ class GameBoard:
         """
         Generate a random position
         """
-        x = randrange(self.size)
-        y = randrange(self.size)
-        return (x, y)
+        row = randrange(self.size)
+        col = randrange(self.size)
+        return (row, col)
 
     def gen_unique_position(self):
         """
@@ -90,7 +93,8 @@ class GameBoard:
         """
         while True:
             pos = self.gen_random_position()
-            if pos not in self.wrong_guesses and pos not in self.correct_guesses:
+            if (pos not in self.wrong_guesses
+                    and pos not in self.correct_guesses):
                 return pos
 
     def game_finished(self):
@@ -115,7 +119,9 @@ class GameBoard:
         """
         Check if the guess is unique(not previously guessed)
         """
-        return pos not in self.correct_guesses and pos not in self.wrong_guesses
+        return (
+            pos not in self.correct_guesses and pos not in self.wrong_guesses
+        )
 
 
 class BattleshipsGame:
@@ -146,7 +152,7 @@ class BattleshipsGame:
                 if board.validate_position(parsed_user_guess) is True:
                     if board.is_guess_unique(parsed_user_guess):
                         return parsed_user_guess
-                    print("You have already guessed this position. Try another one:")
+                    print("You already guessed this position.Try another one:")
                 else:
                     print("Enter a position inside the board")
             except ValueError:
@@ -195,13 +201,18 @@ class BattleshipsGame:
                 break
 
     def print_rules(self):
-        """ 
+        """
         Print the game rules
         """
-        print("The rules are simple: Each player starts with three boats randomly positioned on his board.")
-        print("Then each round you have to make a guess to try and hit one of the opponents boat.")
-        print("The computer will also try to guess the location of your boats.")
-        print("The game ends when one player guesses the positions of all of their opponents boats.")
+        print(("The rules are simple: "
+               "Each player starts with three boats "
+               "randomly positioned on his board."))
+        print(("Then each round you have to make a guess "
+               "to try and hit one of the opponents boat."))
+        print(("The computer will also try "
+               "to guess the location of your boats."))
+        print(("The game ends when one player guesses "
+               "the positions of all of their opponents boats."))
         print("Every guess must look like this: row,col")
         print("Example: 2,1")
         print("")
@@ -225,7 +236,8 @@ class BattleshipsGame:
 
             # Ask the user to play again
             play_again = input(
-                "Would you like to play again? Press \"N\" to end or any key to play again\n")
+                "Would you like to play again? Press \"N\"\
+                     to end or any key to play again\n")
             if play_again.lower() == "n":
                 break
 
