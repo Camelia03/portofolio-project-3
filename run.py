@@ -13,7 +13,7 @@ class GameBoard:
         self.size = 4
         self.board_state = [
             [" " for i in range(self.size)] for i in range(self.size)]
-        self.nr_boats = 1
+        self.nr_boats = 3
         self.boat_positions = []
         for i in range(self.nr_boats):
             pos = self.gen_unique_position()
