@@ -24,14 +24,23 @@ class GameBoard:
 
     def pretty_print(self, hide_boats=False):
         """
-        Print the board
+        Print the board using unicode characters
         """
+        def hide_boat(cell):
+            """
+            Hide the boat if necessary
+            """
+            if hide_boats is True and cell == "O":
+                return " "
+            return cell
+
         table = ""
         for i, row in enumerate(self.board_state):
             if i == 0:
                 table += "┏━━━" + "┳━━━" * (self.size - 1) + "┓" + "\n"
 
-            table += ("".join(f"┃ {cell} " for cell in row)) + "┃" + "\n"
+            table += ("".join(f"┃ {hide_boat(cell)} " for cell in row)
+                      ) + "┃" + "\n"
 
             if i == len(self.board_state) - 1:
                 table += "┗━━━" + "┻━━━" * (self.size - 1) + "┛" + "\n"
