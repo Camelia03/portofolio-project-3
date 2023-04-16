@@ -147,7 +147,7 @@ class BattleshipsGame:
             try:
                 # Parse the user input to a tuple
                 parsed_user_guess = self.parse_user_guess(
-                    input("Enter a guess:"))
+                    input("Enter a guess: \n"))
 
                 if board.validate_position(parsed_user_guess) is True:
                     if board.is_guess_unique(parsed_user_guess):
