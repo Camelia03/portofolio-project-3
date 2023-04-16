@@ -96,6 +96,12 @@ class GameBoard:
             return False
         return True
 
+    def is_guess_unique(self, pos):
+        """
+        Check if the guess is unique(not previously guessed)
+        """
+        return pos not in self.correct_guesses and pos not in self.wrong_guesses
+
 
 class BattleshipsGame:
     """
@@ -117,9 +123,14 @@ class BattleshipsGame:
             try:
                 # Parse the user input to a tuple
                 parsed_user_guess = self.parse_user_guess(
-                    input("Please enter a guess:"))
+                    input("Enter a guess:"))
+
                 if board.validate_position(parsed_user_guess) is True:
-                    return parsed_user_guess
+                    if board.is_guess_unique(parsed_user_guess):
+                        return parsed_user_guess
+                    print("You have already guessed this position. Try another one:")
+                else:
+                    print("Enter a position inside the board")
             except ValueError:
                 pass
 
