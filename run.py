@@ -156,22 +156,27 @@ class BattleshipsGame:
         """
         Play a round of the game
         """
-        while True:
-            # Display the game boards
+        def display_boards():
+            """
+            Display the game boards
+            """
             print("Computer's board: ")
             computer_board.pretty_print(True)
             print("User's board: ")
             user_board.pretty_print()
+
+        while True:
+            display_boards()
 
             # Ask the user for correct guess
             user_guess = self.get_user_guess(computer_board)
 
             # Add the user's guess to the computer board and print the result
             computer_board.add_guess(user_guess)
-            computer_board.pretty_print(True)
 
             # Check if the user has won
             if computer_board.game_finished():
+                display_boards()
                 print("Congrats! You have won!")
                 break
 
@@ -180,10 +185,10 @@ class BattleshipsGame:
 
             # Add the computer's guess to the user's board and print the result
             user_board.add_guess(computer_guess)
-            user_board.pretty_print()
 
             # Check if the computer has won
             if user_board.game_finished():
+                display_boards()
                 print("Oh no! You have lost!")
                 break
 
