@@ -22,7 +22,7 @@ class GameBoard:
         self.correct_guesses = []
         self.wrong_guesses = []
 
-    def pretty_print(self):
+    def pretty_print(self, hide_boats=False):
         """
         Print the board
         """
@@ -30,8 +30,13 @@ class GameBoard:
             print(i, end=": ")
             for cell in row:
                 print("|", end="")
-                print(cell, end="")
+                if hide_boats is True and cell == "O":
+                    print(" ", end="")
+                else:
+                    print(cell, end="")
             print("|")
+
+        print("")
 
     def gen_random_position(self):
         """
@@ -143,7 +148,7 @@ class BattleshipsGame:
         while True:
             # Display the game boards
             print("Computer's board: ")
-            computer_board.pretty_print()
+            computer_board.pretty_print(True)
             print("User's board: ")
             user_board.pretty_print()
 
@@ -152,7 +157,7 @@ class BattleshipsGame:
 
             # Add the user's guess to the computer board and print the result
             computer_board.add_guess(user_guess)
-            computer_board.pretty_print()
+            computer_board.pretty_print(True)
 
             # Check if the user has won
             if computer_board.game_finished():
