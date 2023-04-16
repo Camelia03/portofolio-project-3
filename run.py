@@ -194,12 +194,25 @@ class BattleshipsGame:
                 print("Oh no! You have lost!")
                 break
 
+    def print_rules(self):
+        """ 
+        Print the game rules
+        """
+        print("The rules are simple: Each player starts with three boats randomly positioned on his board.")
+        print("Then each round you have to make a guess to try and hit one of the opponents boat.")
+        print("The computer will also try to guess the location of your boats.")
+        print("The game ends when one player guesses the positions of all of their opponents boats.")
+        print("Every guess must look like this: row,col")
+        print("Example: 2,1")
+        print("")
+
     def run(self):
         """
         Main game loop
         """
         self.user_name = input("Enter your name:\n")
         print(f"Welcome to Battleships Game, {self.user_name}!")
+        self.print_rules()
         while True:
             # Generate game boards
             computer_board = GameBoard()
