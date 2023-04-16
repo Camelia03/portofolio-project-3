@@ -36,12 +36,14 @@ class GameBoard:
 
         table = ""
         for i, row in enumerate(self.board_state):
+            # Print start of table
             if i == 0:
                 table += "┏━━━" + "┳━━━" * (self.size - 1) + "┓" + "\n"
 
-            table += ("".join(f"┃ {hide_boat(cell)} " for cell in row)
-                      ) + "┃" + "\n"
+            # Print cells
+            table += "".join(f"┃ {hide_boat(cell)} " for cell in row) + "┃" + "\n"
 
+            # Print end or middle of table
             if i == len(self.board_state) - 1:
                 table += "┗━━━" + "┻━━━" * (self.size - 1) + "┛" + "\n"
             else:
