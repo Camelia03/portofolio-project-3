@@ -1,8 +1,5 @@
 from random import randrange
 
-# name_str = input("Enter your name:\n")
-# print(f"Welcome to Battleships Game, {name_str}!")
-
 
 class GameBoard:
     """
@@ -126,6 +123,9 @@ class BattleshipsGame:
     Class representing the game
     """
 
+    def __init__(self) -> None:
+        self.user_name = ""
+
     def parse_user_guess(self, user_guess):
         """
         Function to parse user guess to tuple of int
@@ -164,7 +164,7 @@ class BattleshipsGame:
             """
             print("Computer's board: ")
             computer_board.pretty_print(True)
-            print("User's board: ")
+            print(f"{self.user_name}'s board: ")
             user_board.pretty_print()
 
         while True:
@@ -179,7 +179,7 @@ class BattleshipsGame:
             # Check if the user has won
             if computer_board.game_finished():
                 display_boards()
-                print("Congrats! You have won!")
+                print(f"Congrats, {self.user_name}! You have won!")
                 break
 
             # Generate randome guess for the computer
@@ -198,6 +198,8 @@ class BattleshipsGame:
         """
         Main game loop
         """
+        self.user_name = input("Enter your name:\n")
+        print(f"Welcome to Battleships Game, {self.user_name}!")
         while True:
             # Generate game boards
             computer_board = GameBoard()
