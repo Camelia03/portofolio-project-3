@@ -221,7 +221,13 @@ class BattleshipsGame:
         """
         Main game loop
         """
-        self.user_name = input("Enter your name:\n")
+        while True:
+            self.user_name = input("Enter your name:\n").strip()
+            if self.user_name == "":
+                print("Name cannot be empty")
+            else:
+                break
+
         print(f"Welcome to Battleships Game, {self.user_name}!")
         self.print_rules()
         while True:
