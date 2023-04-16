@@ -26,28 +26,19 @@ class GameBoard:
         """
         Print the board
         """
-        table = "┏━━━" + "┳━━━" * (self.size - 1) + "┓" + "\n"
-        table += ("┃" + "   ") * (self.size) + "┃" + "\n"
-        table += "┣━━━" + "╋━━━" * (self.size - 1) + "┫" + "\n"
-        table += ("┃" + "   ") * (self.size) + "┃" + "\n"
-        table += "┣━━━" + "╋━━━" * (self.size - 1) + "┫" + "\n"
-        table += ("┃" + "   ") * (self.size) + "┃" + "\n"
-        table += "┗━━━" + "┻━━━" * (self.size - 1) + "┛" + "\n"
+        table = ""
+        for i, row in enumerate(self.board_state):
+            if i == 0:
+                table += "┏━━━" + "┳━━━" * (self.size - 1) + "┓" + "\n"
+
+            table += ("".join(f"┃ {cell} " for cell in row)) + "┃" + "\n"
+
+            if i == len(self.board_state) - 1:
+                table += "┗━━━" + "┻━━━" * (self.size - 1) + "┛" + "\n"
+            else:
+                table += "┣━━━" + "╋━━━" * (self.size - 1) + "┫" + "\n"
 
         print(table)
-        return
-
-        for i, table in enumerate(self.board_state):
-            print(i, end=": ")
-            for cell in table:
-                print("|", end="")
-                if hide_boats is True and cell == "O":
-                    print(" ", end="")
-                else:
-                    print(cell, end="")
-            print("|")
-
-        print("")
 
     def gen_random_position(self):
         """
